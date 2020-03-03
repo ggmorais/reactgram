@@ -25,6 +25,8 @@ const INITIAL_STATE = {
         fullname: 'Fulano da Silva',
       },
       image: 'https://picsum.photos/750',
+      date: Date.now(),
+
     },
     {
       _id: Math.random().toString(),
@@ -35,6 +37,7 @@ const INITIAL_STATE = {
         fullname: 'Fulano da Silva',
       },
       image: 'https://picsum.photos/751',
+      date: Date.now(),
     },
     {
       _id: Math.random().toString(),
@@ -45,6 +48,7 @@ const INITIAL_STATE = {
         fullname: 'Fulano da Silva',
       },
       image: 'https://picsum.photos/752',
+      date: Date.now(),
     },
     {
       _id: Math.random().toString(),
@@ -55,6 +59,7 @@ const INITIAL_STATE = {
         fullname: 'Fulano da Silva',
       },
       image: 'https://picsum.photos/753',
+      date: Date.now(),
     },
     {
       _id: Math.random().toString(),
@@ -65,6 +70,7 @@ const INITIAL_STATE = {
         fullname: 'Fulano da Silva',
       },
       image: 'https://picsum.photos/754',
+      date: Date.now(),
     },
     {
       _id: Math.random().toString(),
@@ -75,6 +81,7 @@ const INITIAL_STATE = {
         fullname: 'Fulano da Silva',
       },
       image: 'https://picsum.photos/754',
+      date: Date.now(),
     },
   ],
   posts: [
@@ -156,7 +163,7 @@ const reducer = (prev: any, state: any) => {
     case 'SWITCH_STORY':
       return {
         ...prev,
-        activeStory: { ...state }
+        activeStory: state.pos
       }
     default:
       return INITIAL_STATE;

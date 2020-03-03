@@ -12,14 +12,14 @@ export default function Stories() {
     <Container>
       <Header>
         <p>Stories</p>
-        <button>Ver tudo</button>
+        <button onClick={() => dispatch({ type: 'SWITCH_STORY', pos: 0 })}>See all</button>
       </Header>
       <List>
-        {stories.map((story: any) => (
+        {stories.map((story: any, i: number) => (
           <Card 
             key={story._id} 
             {...story}
-            onClick={() => dispatch({ type: 'SWITCH_STORY', ...story })}
+            onClick={() => dispatch({ type: 'SWITCH_STORY', pos: i })}
           />
         ))}
       </List>  
