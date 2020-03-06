@@ -3,7 +3,6 @@ import styled from 'styled-components';
 export const Container = styled.div`
   width: 100%;
   height: 250px;
-  /* overflow-y: hidden; */
   background-color: ${props => props.theme.base2};
   border-radius: 2px;
   box-shadow: 0px 0px 1px 0px ${props => props.theme.shadow};
@@ -35,5 +34,5 @@ export const Header = styled.div`
 
 export const List = styled.div`
   overflow-y: auto;
-  height: 200px;
+  max-height: 200px;
 `;

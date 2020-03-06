@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import IStorie from './IStorie';
 
 const Container = styled.div`
   width: 400px;

@@ -15,7 +15,7 @@ export default function Home() {
   return (
     <Container>
       <Header />
-      {profile && <Profile username={profile} />}
+      {profile && <Profile />}
       {!profile && (
         <Responsible>
           <Timeline />

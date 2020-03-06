@@ -15,7 +15,7 @@ export default function Stories() {
         <button onClick={() => dispatch({ type: 'SWITCH_STORY', pos: 0 })}>See all</button>
       </Header>
       <List>
-        {stories.map((story: any, i: number) => (
+        {stories.map((story: IStorie, i: number) => (
           <Card 
             key={story._id} 
             {...story}

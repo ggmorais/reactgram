@@ -1,12 +1,7 @@
 import { createStore } from 'redux';
 import themes from '../styles/themes';
 
-export interface IStore {
-  user: Object,
-  posts: Array<Object>;
-  themes: Object;
-  smallMode: boolean;
-};
+
 
 const INITIAL_STATE = {
   user: {
@@ -26,7 +21,6 @@ const INITIAL_STATE = {
       },
       image: 'https://picsum.photos/750',
       date: Date.now(),
-
     },
     {
       _id: Math.random().toString(),

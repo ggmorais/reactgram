@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import IStorie from './IStorie';
 
 const Container = styled.div`
   height: 50px;
@@ -11,6 +10,8 @@ const Container = styled.div`
   overflow-y: auto;
   cursor: pointer;
   margin-bottom: 5px;
+
+  /* margin-left: 300px; */
 
   img {
     width: 36px;

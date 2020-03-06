@@ -15,17 +15,7 @@ export function StoryViewer() {
   const dispatch = useDispatch();
   const [story, activeStory] = useSelector(({ stories, activeStory }: any) => [stories[activeStory], activeStory]);
 
-  const [image, setImage] = useState('');
-
-  useEffect(() => {
-    if (story) {
-      fetch(story.image)
-        .then(r => r.text())
-        .then(r => setImage('data:image/png;base64,' + r));
-    }
-  }, [story])
-
-  if (!story) return <div/>
+  if (!story) return <div />;
 
   const close = () => {
     dispatch({ type: 'SWITCH_STORY', pos: null });
@@ -33,13 +23,6 @@ export function StoryViewer() {
 
   const change = (n: number) => {
     dispatch({ type:  'SWITCH_STORY', pos: activeStory + n });
-  }
-
-  const storyLoadingStyle = { 
-    backgroundImage: `url(${image ? image : spinner})`,
-    backgroundSize: 'auto',
-    backgroundRepeat: 'no-repeat', 
-    backgroundPosition: 'center' 
   }
 
   return (
@@ -56,7 +39,6 @@ export function StoryViewer() {
             <MdMoreHoriz size={30} style={{ marginLeft: 'auto' }} />
           </Header>
           <Image style={ { backgroundImage: `url(${story.image})` } } />
-          {/* <Image background={story.image} /> */}
         </Middle>
         <SideButtons>
           <MdClose onClick={() => close()} size={30} style={{ marginBottom: 'auto', marginTop: '40px' }} />

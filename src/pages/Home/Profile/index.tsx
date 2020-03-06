@@ -1,15 +1,11 @@
 import React from 'react';
 import { Container } from './style';
 
-interface IProfile {
-  username: string;
-}
-
-export default function Profile({username}: IProfile) {
+export default function Profile() {
 
   return (
     <Container>
-      <p>eae {username}</p>
+      <p>eae</p>
     </Container>
   );
 };

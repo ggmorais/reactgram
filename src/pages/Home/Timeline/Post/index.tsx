@@ -2,13 +2,6 @@ import React from 'react';
 import { MdMoreHoriz, MdShare, MdThumbUp } from 'react-icons/md';
 import { ActionBar, Container, PostImage, TitleBar } from './style';
 
-export interface IPost {
-  _id: string;
-  user: Object | any,
-  image: string,
-  likes: Array<Object>;
-};
-
 export function Post(props: IPost) {
 
   return (
