@@ -1,0 +1,74 @@
+.register-container {
+  width: 100%;
+  height: 100vh;
+}
+
+.register-container div {
+  max-width: 400px;
+  margin: 70px auto;
+}
+
+.register-container div form {
+  display: flex;
+  flex-direction: column;
+  min-height: 300px;
+  border: 1px solid #d1d1d1;
+  padding: 40px;
+}
+
+.register-container div form h1 {
+  text-align: center;
+  font-family: pacifico;
+  font-size: 40px;
+  font-weight: 500;
+  margin-bottom: 15px;
+}
+
+.register-container div form p {
+  text-align: center;
+  font-weight: 500;
+  font-size: 20px;
+  color: #999999;
+  margin-bottom: 15px;
+}
+
+.register-container div form span {
+  text-align: center;
+  font-weight: 500;
+  font-size: 14px;
+  color: #a1a1a1;
+  margin-top: 20px;
+}
+
+.register-container div form input {
+  padding: 8px;
+  border: 1px solid #d1d1d1;
+  margin-top: 8px;
+}
+
+.register-container div form button {
+  background-color: #b2dffc;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  padding: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  margin-top: 14px;
+}
+
+.register-container div div {
+  border: 1px solid #d1d1d1;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.register-container div div p {
+  text-align: center;
+  padding: 27px;
+}
+
+.register-container div div p .gotoLogin {
+  color: #b2dffc;
+  text-decoration: none;
+}

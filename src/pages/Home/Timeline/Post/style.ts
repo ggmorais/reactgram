@@ -38,4 +38,8 @@ export const ActionBar = styled.div`
   flex-direction: row;
   padding: 15px;
   color: ${props => props.theme.font1};
+
+  * {
+    cursor: pointer;
+  }
 `;
