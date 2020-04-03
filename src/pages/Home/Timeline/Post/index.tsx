@@ -10,11 +10,22 @@ import './styles.css';
 export function Post(props: IPost) {
 
   const [liked, setLiked] = useState(false);
+  const [likes, setLikes] = useState([] as IUser[]);
 
-  const user = JSON.parse(localStorage.getItem('auth') || '');
+  const user: IUser = JSON.parse(localStorage.getItem('auth') || '');
 
   const handleLike = async () => {
     
+    if (liked === true) {
+      for (let lks in likes) {
+        setLikes(likes.filter(() => likes[lks].username !== user.username));
+      }
+    }
+
+    if (!likes.length && liked === false) {
+      setLikes([...likes, user]);
+    }
+
     setLiked(liked ? false : true);
 
     try {
@@ -24,31 +35,30 @@ export function Post(props: IPost) {
       });
 
     } catch(err) {
-      console.log(err)
+      alert('Sorry, we could not manage your like now, please try again later.')
     }
   }
 
-  const handleShare = async () => {
+  const handleShare = async () => {}
 
-  }
+  const handleComment = async () => {}
 
-  const handleComment = async () => {
-
-  }
-
-  const handleMark = async () => {
-
-  }
+  const handleMark = async () => {}
 
   useEffect(() => {
-    if (props.likes.length > 0) {
-      for (let like of props.likes) {
-        if (like.username == user.username) {
-          setLiked(true);
-        }
+    if (!likes.length) setLikes(props.likes);
+
+    for (let like of props.likes) {
+      if (like.username == user.username) {
+        setLiked(true);
       }
     }
-  }, [])
+
+  }, []);
+
+  useEffect(() => {
+    console.log('upd', likes)
+  }, [likes])
 
   return (
     <Container>
@@ -77,7 +87,15 @@ export function Post(props: IPost) {
         <FiShare2 size={28} onClick={handleShare} style={{ marginLeft: '10px' }} />
         <FiBookmark size={28} onClick={handleMark} style={{ marginLeft: 'auto' }} />
       </ActionBar>
+      {likes.length > 0 && (
+        <p style={{ marginLeft: '15px' }}>
+          Liked by <strong>{likes[0].username}</strong>
 
+          {likes.length > 1 && (
+            <span>and <strong>another {likes.length} people</strong></span>
+          )}
+        </p>
+      )}
     </Container>
   );
 };
