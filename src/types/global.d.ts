@@ -1,9 +1,9 @@
 declare interface IUser {
-  _id?: string,
-  fullname?: string,
-  username?: string,
-  image?: string,
-  imageUrl?: string,
+  _id?: string;
+  fullname?: string;
+  username?: string;
+  image?: string;
+  imageUrl?: string;
 }
 
 declare interface ILike {
@@ -13,9 +13,9 @@ declare interface ILike {
 
 declare interface IPost {
   _id?: string;
-  date: Date,
+  date: Date;
   user: IUser;
-  image: string,
+  image: string;
   likes: IUser[];
 }
 
@@ -28,7 +28,7 @@ declare interface IStorie {
 };
 
 declare interface IStore {
-  user: IUser,
+  user: IUser;
   posts: Array<IPost>;
   themes: Object;
   theme: string;

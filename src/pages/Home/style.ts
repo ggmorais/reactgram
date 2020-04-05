@@ -9,6 +9,7 @@ export const Responsible = styled.div`
   flex-direction: row;
   width: 78%;
   min-width: 850px;
+  max-width: 935px;
   padding-left: 3px;
   padding-right: 3px;
   justify-content: space-between;

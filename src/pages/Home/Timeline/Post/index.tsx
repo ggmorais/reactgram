@@ -29,7 +29,7 @@ export function Post(props: IPost) {
     setLiked(liked ? false : true);
 
     try {
-      const res = await api.post('/posts/like', {
+      await api.post('/posts/like', {
         userId: user._id,
         postId: props._id
       });
@@ -55,10 +55,6 @@ export function Post(props: IPost) {
     }
 
   }, []);
-
-  useEffect(() => {
-    console.log('upd', likes)
-  }, [likes])
 
   return (
     <Container>
@@ -87,6 +83,7 @@ export function Post(props: IPost) {
         <FiShare2 size={28} onClick={handleShare} style={{ marginLeft: '10px' }} />
         <FiBookmark size={28} onClick={handleMark} style={{ marginLeft: 'auto' }} />
       </ActionBar>
+
       {likes.length > 0 && (
         <p style={{ marginLeft: '15px' }}>
           Liked by <strong>{likes[0].username}</strong>
@@ -96,6 +93,7 @@ export function Post(props: IPost) {
           )}
         </p>
       )}
+
     </Container>
   );
 };

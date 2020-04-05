@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   background-color: white;
-  height: 80px;
+  height: 54px;
   position: fixed;
   display: flex;
   justify-content: space-between;
@@ -27,7 +27,7 @@ export const Title = styled.h2`
   margin-left: 10px;
   margin-top: -5px;
   padding-left: 10px;
-  border-left: 1px solid ${(props: any) => props.theme.font1};
+  /* border-left: 1px solid ${(props: any) => props.theme.font1}; */
   cursor: pointer;
   font-weight: 100;
   font-size: 25px;
