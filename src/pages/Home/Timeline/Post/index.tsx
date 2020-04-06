@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useHistory, Link } from 'react-router-dom';
 import { MdMoreHoriz, MdAccountCircle } from 'react-icons/md';
 import { FiHeart, FiMessageCircle, FiShare2, FiBookmark } from 'react-icons/fi';
+import CopyToClipboard from 'react-copy-to-clipboard';
 
 import api from '../../../../services/api';
 
@@ -14,7 +15,9 @@ export function Post(props: IPost) {
   const [likes, setLikes] = useState([] as IUser[]);
   const [comment, setComment] = useState('');
   const [comments, setComments] = useState([] as IComment[]);
-  
+  const [more, setMore] = useState(false);
+
+  const postRef = useRef<HTMLInputElement>(null);
   const history = useHistory();
 
   const user: IUser = JSON.parse(localStorage.getItem('auth') || '');
@@ -90,7 +93,7 @@ export function Post(props: IPost) {
         }
         <p>{props.user.username}</p>
 
-        <MdMoreHoriz size={22} style={{ marginLeft: 'auto', marginRight: '15px' }} />
+        <MdMoreHoriz onClick={() => setMore(true)} size={22} style={{ marginLeft: 'auto', marginRight: '15px' }} />
       </TitleBar>
 
       <PostImage src={props.image} />
@@ -108,6 +111,8 @@ export function Post(props: IPost) {
         <FiBookmark size={28} onClick={handleMark} style={{ marginLeft: 'auto' }} />
       </ActionBar>
       
+      <input value={window.location.href + '/p/' + props._id} ref={postRef} type="hidden" />
+
       <div className="post-bellow">
         {likes.length > 0 && (
           <p>
@@ -126,6 +131,7 @@ export function Post(props: IPost) {
                 <b>{comments[0].user.username} </b>
               </Link>{comments[0].body}
             </p>
+
             {comments.length > 1 && (
               <>
                 {comments.length > 3 && <Link to={'/p/' + props._id}><span>See all {comments.length} commentaries</span></Link>}
@@ -163,6 +169,19 @@ export function Post(props: IPost) {
           Publish
         </button>
       </form>
+
+      {more && (
+        <div className="post-more">
+          <div className="centered">
+            <button style={{ fontWeight: 'bold', color: '#ed4956' }}>Unfollow</button>
+            <button>Goto publication</button>
+            <CopyToClipboard text={`${window.location.href}p/${props._id}`}>
+              <button>Copy link</button>
+            </CopyToClipboard>
+            <button onClick={() => setMore(false)}>Cancel</button>
+          </div>
+        </div>
+      )}
     </Container>
   );
 };

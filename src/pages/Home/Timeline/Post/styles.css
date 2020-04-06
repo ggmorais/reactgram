@@ -52,3 +52,46 @@
   cursor: pointer;
 }
 
+.post-more {
+  position: fixed;
+  z-index: 30;
+  overflow: hidden;
+  margin: 0;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, .2);
+  display: flex;
+  align-items: center;
+}
+
+.post-more .centered {
+  width: 400px;
+  height: auto;
+
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  background-color: #fff;
+  border-radius: 15px;
+  z-index: 32;
+}
+
+.post-more .centered button {
+  line-height: 40px;
+  border: none;
+  border-bottom: 1px solid #c4c4c4;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+.post-more .centered button:first-child {
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+}
+
+.post-more .centered button:last-child {
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+}

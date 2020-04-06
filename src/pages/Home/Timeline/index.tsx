@@ -43,7 +43,7 @@ export default function Timeline() {
       <InfiniteScroll
         loadMore={fetchPosts}
         hasMore={(total > 0 && total == posts.length) ? false : true}
-        threshold={1000}
+        threshold={1000} 
       >
         {posts && posts.map((post: IPost) => (
           <Post 
