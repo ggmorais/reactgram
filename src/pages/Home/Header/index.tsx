@@ -13,7 +13,7 @@ export function Header() {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const user = JSON.parse(localStorage.getItem('auth') || '');
+  const user: IUser = JSON.parse(localStorage.getItem('auth') || '');
 
   return (
     <div className="header-container">
@@ -24,10 +24,10 @@ export function Header() {
           <input id="search-input" type="text" placeholder="Search" />
         </label>
         <div className="icons">
-          <FiHome size={24} />
-          <FiCompass size={24} />
+          <FiHome size={24} onClick={() => history.push('/')} />
+          <FiCompass size={24} onClick={() => history.push('/explore')} />
           <FiHeart size={24} />
-          <MdAccountCircle size={24} />
+          <MdAccountCircle size={24} onClick={() => history.push('/' + user.username)} />
         </div>
       </div>
     </div>

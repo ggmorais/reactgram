@@ -6,6 +6,11 @@ declare interface IUser {
   imageUrl?: string;
 }
 
+declare interface IComment {
+  user: IUser;
+  body: string;
+}
+
 declare interface ILike {
   user: IUser;
   date: Date;
@@ -17,6 +22,7 @@ declare interface IPost {
   user: IUser;
   image: string;
   likes: IUser[];
+  comments: IComment[]; 
 }
 
 declare interface IStorie {

@@ -11,9 +11,11 @@ export function Post(props: IPost) {
 
   const [liked, setLiked] = useState(false);
   const [likes, setLikes] = useState([] as IUser[]);
+  const [comment, setComment] = useState('');
+  const [comments, setComments] = useState([] as IComment[]);
 
   const user: IUser = JSON.parse(localStorage.getItem('auth') || '');
-
+  
   const handleLike = async () => {
     
     if (liked === true) {
@@ -39,14 +41,27 @@ export function Post(props: IPost) {
     }
   }
 
-  const handleShare = async () => {}
+  const handleComment = async (e: any) => {
+    e.preventDefault();
 
-  const handleComment = async () => {}
+    try {
+      api.post('/posts/comment', {
+        postId: props._id,
+        userId: user._id,
+        body: comment
+      });
+    } catch(err) { console.log(err) }
+  }
+
+  const handleShare = async () => {}
 
   const handleMark = async () => {}
 
   useEffect(() => {
     if (!likes.length) setLikes(props.likes);
+    if (props.comments) setComments(props.comments);
+
+    console.log(props.comments)
 
     for (let like of props.likes) {
       if (like.username == user.username) {
@@ -94,6 +109,33 @@ export function Post(props: IPost) {
         </p>
       )}
 
+      {comments.length > 0 && (
+        <div>
+          <p><strong>{comments[0].user.username}</strong>{comments[0].body}</p>
+          {comments.length > 1 && (
+            <>
+              {comments.length > 3 && <span>See all {comments.length} commentaries</span>}
+              <p><strong>{comments[comments.length].user.username}</strong>{comments[comments.length].body}</p>
+              <p><strong>{comments[comments.length -1].user.username}</strong>{comments[comments.length -1].body}</p>
+            </>
+          )}
+          <span>{props.date} ago</span>
+        </div>
+      )}
+
+      <form onSubmit={handleComment} className="newcomment-container">
+        <textarea 
+          value={comment} 
+          onChange={(e) => setComment(e.target.value)} 
+          placeholder="Add a commentary" 
+        />
+        <button 
+          disabled={comment ? false : true} 
+          style={{ opacity: comment ? 1 : .4 }}
+        >
+          Publish
+        </button>
+      </form>
     </Container>
   );
 };

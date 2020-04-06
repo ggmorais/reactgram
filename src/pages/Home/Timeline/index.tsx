@@ -53,6 +53,7 @@ export default function Timeline() {
             image={post.image}
             likes={post.likes}
             date={post.date}
+            comments={post.comments}
           />
         ))}
       </InfiniteScroll>
