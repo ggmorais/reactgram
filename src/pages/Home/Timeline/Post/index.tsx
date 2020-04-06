@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory, Link } from 'react-router-dom';
 import { MdMoreHoriz, MdAccountCircle } from 'react-icons/md';
 import { FiHeart, FiMessageCircle, FiShare2, FiBookmark } from 'react-icons/fi';
 
@@ -13,6 +14,8 @@ export function Post(props: IPost) {
   const [likes, setLikes] = useState([] as IUser[]);
   const [comment, setComment] = useState('');
   const [comments, setComments] = useState([] as IComment[]);
+  
+  const history = useHistory();
 
   const user: IUser = JSON.parse(localStorage.getItem('auth') || '');
   
@@ -45,11 +48,19 @@ export function Post(props: IPost) {
     e.preventDefault();
 
     try {
-      api.post('/posts/comment', {
+      setComments([...comments, {
+        user,
+        body: comment
+      }]);
+
+      setComment('');
+
+      await api.post('/posts/comment', {
         postId: props._id,
         userId: user._id,
         body: comment
       });
+
     } catch(err) { console.log(err) }
   }
 
@@ -60,8 +71,6 @@ export function Post(props: IPost) {
   useEffect(() => {
     if (!likes.length) setLikes(props.likes);
     if (props.comments) setComments(props.comments);
-
-    console.log(props.comments)
 
     for (let like of props.likes) {
       if (like.username == user.username) {
@@ -98,30 +107,48 @@ export function Post(props: IPost) {
         <FiShare2 size={28} onClick={handleShare} style={{ marginLeft: '10px' }} />
         <FiBookmark size={28} onClick={handleMark} style={{ marginLeft: 'auto' }} />
       </ActionBar>
+      
+      <div className="post-bellow">
+        {likes.length > 0 && (
+          <p>
+            Liked by <strong>{likes[0].username}</strong>
 
-      {likes.length > 0 && (
-        <p style={{ marginLeft: '15px' }}>
-          Liked by <strong>{likes[0].username}</strong>
+            {likes.length > 1 && (
+              <span>and <strong>another {likes.length} people</strong></span>
+            )}
+          </p>
+        )}
 
-          {likes.length > 1 && (
-            <span>and <strong>another {likes.length} people</strong></span>
-          )}
-        </p>
-      )}
+        {comments.length > 0 && (
+          <>
+            <p>
+              <Link to={'/' + comments[0].user.username}>
+                <b>{comments[0].user.username} </b>
+              </Link>{comments[0].body}
+            </p>
+            {comments.length > 1 && (
+              <>
+                {comments.length > 3 && <Link to={'/p/' + props._id}><span>See all {comments.length} commentaries</span></Link>}
+                
+                <p>
+                  <Link to={'/' + comments[comments.length -2].user.username}>
+                    <b>{comments[comments.length -2].user.username} </b>
+                  </Link>{comments[comments.length -2].body}
+                </p>
 
-      {comments.length > 0 && (
-        <div>
-          <p><strong>{comments[0].user.username}</strong>{comments[0].body}</p>
-          {comments.length > 1 && (
-            <>
-              {comments.length > 3 && <span>See all {comments.length} commentaries</span>}
-              <p><strong>{comments[comments.length].user.username}</strong>{comments[comments.length].body}</p>
-              <p><strong>{comments[comments.length -1].user.username}</strong>{comments[comments.length -1].body}</p>
-            </>
-          )}
-          <span>{props.date} ago</span>
-        </div>
-      )}
+                {comments.length > 2 && (
+                  <p>
+                    <Link to={'/' + comments[comments.length -1].user.username}>
+                      <b>{comments[comments.length -1].user.username} </b>
+                    </Link>{comments[comments.length -1].body}
+                  </p>
+                )}
+              </>
+            )}
+            <span className="post-date">{props.date} ago</span>
+          </>
+        )}
+      </div>
 
       <form onSubmit={handleComment} className="newcomment-container">
         <textarea 
