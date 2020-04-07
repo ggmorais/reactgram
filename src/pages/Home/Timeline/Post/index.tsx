@@ -17,20 +17,19 @@ export function Post(props: IPost) {
   const [comments, setComments] = useState([] as IComment[]);
   const [more, setMore] = useState(false);
 
-  const postRef = useRef<HTMLInputElement>(null);
   const history = useHistory();
 
   const user: IUser = JSON.parse(localStorage.getItem('auth') || '');
   
   const handleLike = async () => {
     
-    if (liked === true) {
+    if (liked) {
       for (let lks in likes) {
         setLikes(likes.filter(() => likes[lks].username !== user.username));
       }
     }
 
-    if (!likes.length && liked === false) {
+    if (!likes.length && !liked) {
       setLikes([...likes, user]);
     }
 
@@ -43,7 +42,7 @@ export function Post(props: IPost) {
       });
 
     } catch(err) {
-      alert('Sorry, we could not manage your like now, please try again later.')
+      alert('Sorry, we could not manage your action now, please try again later.')
     }
   }
 
@@ -93,7 +92,11 @@ export function Post(props: IPost) {
         }
         <p>{props.user.username}</p>
 
-        <MdMoreHoriz onClick={() => setMore(true)} size={22} style={{ marginLeft: 'auto', marginRight: '15px' }} />
+        <MdMoreHoriz 
+          onClick={() => setMore(true)} 
+          size={22} 
+          style={{ marginLeft: 'auto', marginRight: '15px', cursor: 'pointer' }} 
+        />
       </TitleBar>
 
       <PostImage src={props.image} />
@@ -110,8 +113,6 @@ export function Post(props: IPost) {
         <FiShare2 size={28} onClick={handleShare} style={{ marginLeft: '10px' }} />
         <FiBookmark size={28} onClick={handleMark} style={{ marginLeft: 'auto' }} />
       </ActionBar>
-      
-      <input value={window.location.href + '/p/' + props._id} ref={postRef} type="hidden" />
 
       <div className="post-bellow">
         {likes.length > 0 && (
@@ -174,10 +175,17 @@ export function Post(props: IPost) {
         <div className="post-more">
           <div className="centered">
             <button style={{ fontWeight: 'bold', color: '#ed4956' }}>Unfollow</button>
-            <button>Goto publication</button>
+
+            <button onClick={() => history.push(`/p/${props._id}`)}>
+              Goto publication
+            </button>
+            
             <CopyToClipboard text={`${window.location.href}p/${props._id}`}>
-              <button>Copy link</button>
+              <button onClick={() => setMore(false)}>
+                Copy link
+              </button>
             </CopyToClipboard>
+
             <button onClick={() => setMore(false)}>Cancel</button>
           </div>
         </div>
