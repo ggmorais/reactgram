@@ -1,9 +1,17 @@
 declare interface IUser {
-  _id?: string;
+  _id?: string | any;
   fullname?: string;
   username?: string;
+  email?: string;
+  creationDate?: Date;
   image?: string;
   imageUrl?: string;
+  posts?: IPost[];
+  saved?: Array;
+  marked?: Array;
+  password?: string;
+  followers?: Array;
+  following?: Array;
 }
 
 declare interface IComment {

@@ -5,6 +5,7 @@ import InfiniteScroll from 'react-infinite-scroller';
 import { Post } from './Post';
 import { Container } from './style';
 import api from '../../../services/api';
+import NewPost from './NewPost';
 
 export default function Timeline() {
 
@@ -40,6 +41,8 @@ export default function Timeline() {
 
   return (
     <Container>
+      <NewPost />
+      
       <InfiniteScroll
         loadMore={fetchPosts}
         hasMore={(total > 0 && total == posts.length) ? false : true}

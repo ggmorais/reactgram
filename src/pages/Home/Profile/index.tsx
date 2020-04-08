@@ -11,16 +11,32 @@ import {
   FiMessageCircle,
 } from 'react-icons/fi'
 
+import api from '../../../services/api';
 import './styles.css';
 
 export default function Profile() {
 
+  const [user, setUser] = useState({} as IUser);
   const [selected, setSelected] = useState('posts');
   const [about, setAbout] = useState('');
 
   const history = useHistory();
 
   const username = history.location.pathname.substring(1)
+
+  const fetchUserData = async () => {
+    try {
+      const res = await api.get(`/profile/${username}`);
+
+      console.log(res.data);
+
+      setUser(res.data);
+    } catch(err) {console.log(err)}
+  }
+
+  useEffect(() => {
+    fetchUserData();
+  }, []);
 
   return (
     <div className="profile-container">
@@ -58,7 +74,7 @@ export default function Profile() {
             </div>
 
             <div className="infos">
-              <b>Gustavo Morais</b>
+              <b>{user.fullname}</b>
               <p>
               Texto texto texto texto texto texto texto
               Texto texto texto texto texto texto texto
@@ -88,19 +104,19 @@ export default function Profile() {
           </div>
 
           <div className="posts">
-            {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map(r => (
+            {user.posts && user.posts.map(post => (
               <div 
-                key={r} 
-                onMouseEnter={() => setAbout(String(r))}
+                key={post._id} 
+                onMouseEnter={() => setAbout(String(post._id))}
                 onMouseLeave={() => setAbout('')}
               >
-                {about === String(r) && (
+                {about === post._id && (
                   <div className="post-infos">
-                    <p><FiHeart size={22} /><span>2</span></p>
-                    <p><FiMessageCircle size={22} /><span>7</span></p>
+                    <p><FiHeart size={22} /><span>{post.likes.length}</span></p>
+                    <p><FiMessageCircle size={22} /><span>{post.comments.length}</span></p>
                   </div>
                 )}
-                <img src="https://picsum.photos/751" />
+                <img src={post.image} />
               </div>
             ))}
           </div>
