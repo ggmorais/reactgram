@@ -13,6 +13,7 @@ export default createGlobalStyle`
     border: 0;
     background-color: ${(props: any) => props.theme.base1};
     font-family: 'Roboto Condensed', sans-serif;
+    overflow-x: hidden;
   };
   
   #root {
