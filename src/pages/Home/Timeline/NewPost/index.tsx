@@ -20,17 +20,17 @@ export default function NewPost() {
     formData.append('userId', user._id);
     formData.append('comment', comment);
 
-    try {
-      setImage('');
-      setComment('');
+    setImage('');
+    setComment('');
 
-      const post = await api.post('/posts/create', formData, {
+    try {
+
+      await api.post('/posts/create', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
       });
 
-      console.log(post);
     } catch(err) {console.log(err)}
   }
 

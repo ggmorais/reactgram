@@ -13,6 +13,7 @@ import {
 
 import api from '../../../services/api';
 import './styles.css';
+import PostPreview from './PostPreview';
 
 export default function Profile() {
 
@@ -28,7 +29,7 @@ export default function Profile() {
     try {
       const res = await api.get(`/profile/${username}`);
 
-      console.log(res.data);
+      console.log(res.data.marked);
 
       setUser(res.data);
     } catch(err) {console.log(err)}
@@ -104,21 +105,12 @@ export default function Profile() {
           </div>
 
           <div className="posts">
-            {user.posts && user.posts.map(post => (
-              <div 
-                key={post._id} 
-                onMouseEnter={() => setAbout(String(post._id))}
-                onMouseLeave={() => setAbout('')}
-              >
-                {about === post._id && (
-                  <div className="post-infos">
-                    <p><FiHeart size={22} /><span>{post.likes.length}</span></p>
-                    <p><FiMessageCircle size={22} /><span>{post.comments.length}</span></p>
-                  </div>
-                )}
-                <img src={post.image} />
-              </div>
-            ))}
+            {(selected === 'posts') 
+              ? (user.posts) && user.posts.map(post => <PostPreview { ...post } key={post._id} host={user.host} />
+            ) :
+            (selected === 'marked') 
+              && (user.marked) && user.marked.map(post => <PostPreview { ...post } key={post._id} host={user.host} />
+            )}
           </div>
         </div>
       </div>

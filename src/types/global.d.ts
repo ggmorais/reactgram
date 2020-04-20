@@ -7,11 +7,14 @@ declare interface IUser {
   image?: string;
   imageUrl?: string;
   posts?: IPost[];
+  marked?: IPost[];
   saved?: Array;
   marked?: Array;
   password?: string;
   followers?: Array;
   following?: Array;
+  host?: string | any;
+  string?: any;
 }
 
 declare interface IComment {
@@ -29,8 +32,10 @@ declare interface IPost {
   date: Date;
   user: IUser;
   image: string;
+  imageUrl?: string;
   likes: IUser[];
   comments: IComment[]; 
+  host?: string | any;
 }
 
 declare interface IStorie {
